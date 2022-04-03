@@ -1,0 +1,31 @@
+* {
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+}
+
+.container {
+  height: 100vh;
+  width: 100vw;
+  background: linear-gradient(
+    -150deg,
+    rgba(117, 58, 136, 1) 0%,
+    rgba(204, 43, 94, 1) 100%
+  );
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: column;
+  & h1 {
+    padding: 2rem 0rem;
+    color: #f3f3f3;
+    font-family: sans-serif;
+  }
+  & p {
+    color: #f3f3f3;
+    font-family: sans-serif;
+    max-width: 70%;
+    line-height: 2rem;
+    font-size: 1.5rem;
+  }
+}
