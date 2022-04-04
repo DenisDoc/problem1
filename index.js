@@ -11,12 +11,50 @@ const person = {
 };
 
 // -------------------1-------------------
+// let dOB = new Date(person.dateOfBirth).getFullYear();
+// const currentYear = new Date().getFullYear();
+// const leapYearsCount = [];
 
-const age = Math.floor(
-  (new Date().getTime() - new Date(person.dateOfBirth).getTime()) /
-    (1000 * 365 * 60 * 60 * 24)
+//check if leap
+// function leapYear(year) {
+//   return (year % 4 == 0 && year % 100 != 0) || year % 400 == 0;
+// }
+
+// while (dOB < currentYear) {
+//   if (leapYear(dOB) == true) {
+//     leapYearsCount.push(dOB);
+//   }
+//   dOB++;
+// }
+
+//verifica daca luna februarie are 28 sau 29 de zile
+function checkLeap(year) {
+  const leap = new Date(year, 1, 28);
+  leap.setDate(leap.getDate() + 1);
+  return leap.getMonth() == 1;
+}
+
+function calcAge(date) {
+  const dateOfBirth = new Date(date);
+  const currentTime = new Date();
+  const currentYear = currentTime.getFullYear();
+
+  let years = currentYear - dateOfBirth.getFullYear();
+
+  dateOfBirth.setFullYear(dateOfBirth.getFullYear() + years);
+
+  if (dateOfBirth > currentTime) {
+    years--;
+    dateOfBirth.setFullYear(dateOfBirth.getFullYear() - 1);
+  }
+  const days = (currentTime.getTime() - dateOfBirth.getTime()) / 864e5;
+  return parseInt(years + days / (checkLeap(currentYear) ? 366 : 365));
+}
+console.log(
+  `${person.firstName} ${person.lastName} is a ${calcAge(
+    person.dateOfBirth
+  )} years old ${person.occupation}`
 );
-console.log(age);
 
 //------------------- 2 ------------------
 
@@ -85,12 +123,19 @@ const vowels = ["a", "e", "i", "o", "u"];
 const totalAmountOfVowels = person.hobbies
   .join("")
   .split("")
-  .filter((x) => vowels.indexOf(x) > -1).length;
+  .filter((x) => vowels.includes(x)).length;
 console.log(totalAmountOfVowels);
 
 //Numarul de vocale din fiecare hobby
 const hobbyVowels = {};
-for (const x of person.hobbies) {
-  hobbyVowels[x] = x.split("").filter((x) => vowels.indexOf(x) > -1).length;
-}
+
+// for (const x of person.hobbies) {
+//   hobbyVowels[x] = x.split("").filter((x) => vowels.includes(x)).length;
+// }
+
+//refactored
+person.hobbies.map(
+  (x) => (hobbyVowels[x] = x.split("").filter((x) => vowels.includes(x)).length)
+);
+
 console.log(hobbyVowels);
