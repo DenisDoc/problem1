@@ -1,21 +1,20 @@
 "use strict";
 // Afiseaza toate numerele pitagorice ale caror suma este 1000. (3 numere a, b, c se numesc pitagorice daca a^2 + b^2 = c^2)
-let x, y;
 
+let x, y;
 const numbers = [];
 
 function random(min, max) {
   return Math.trunc(Math.random() * (max - min + 1) + min);
 }
 
-while (x ** 2 + y ** 2 !== 1000 || numbers.length < 50) {
+while (numbers.length < 30) {
   x = random(0, 30);
   y = random(0, 30);
   if (Math.pow(x, 2) + Math.pow(y, 2) == 1000) {
     numbers.push(x);
   }
 }
-console.log(numbers);
 
 const result = numbers.sort().filter(function (value, index, array) {
   return !index || value != array[index - 1];
