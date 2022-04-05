@@ -1,26 +1,32 @@
 "use strict";
 // Afiseaza toate numerele pitagorice ale caror suma este 1000. (3 numere a, b, c se numesc pitagorice daca a^2 + b^2 = c^2)
 
-let x, y;
+let x, y, z, ipotenuza;
+
 const numbers = [];
 
 function random(min, max) {
   return Math.trunc(Math.random() * (max - min + 1) + min);
 }
 
-while (numbers.length < 30) {
+while (numbers.length < 20) {
   x = random(0, 30);
   y = random(0, 30);
-  if (Math.pow(x, 2) + Math.pow(y, 2) == 1000) {
-    numbers.push(x);
+  z = 1000;
+  ipotenuza = Math.max(x, y, z);
+  if (x ** 2 + y ** 2 == ipotenuza) {
+    numbers.push([x, y, Math.sqrt(ipotenuza)].sort());
   }
 }
 
-const result = numbers.sort().filter(function (value, index, array) {
-  return !index || value != array[index - 1];
-});
+const result = numbers
+  .sort()
+  .map((x) => x.join(", "))
+  .filter(function (value, index, array) {
+    return !index || value != array[index - 1];
+  });
 console.log(result);
-
+/*
 const person = {
   firstName: "Mihai",
   lastName: "Stan",
@@ -59,7 +65,7 @@ console.log(
     person.dateOfBirth
   )} years old ${person.occupation}.`
 );
-/*
+
 //------------------- 2 ------------------
 
 let country;
@@ -121,14 +127,14 @@ const diferenta = even - odd;
 console.log(diferenta);
 
 //------------------7------------------------
- */
+
 const vowels = ["a", "e", "i", "o", "u"];
 // Numarul total de vocal din array
-// const totalAmountOfVowels = person.hobbies
-//   .join("")
-//   .split("")
-//   .filter((x) => vowels.includes(x)).length;
-// console.log(totalAmountOfVowels);
+const totalAmountOfVowels = person.hobbies
+  .join("")
+  .split("")
+  .filter((x) => vowels.includes(x)).length;
+console.log(totalAmountOfVowels);
 
 //Numarul de vocale din fiecare hobby
 const numOfVow = person.hobbies.map(
@@ -136,3 +142,4 @@ const numOfVow = person.hobbies.map(
 );
 
 console.log(numOfVow);
+*/
