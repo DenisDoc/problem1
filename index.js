@@ -1,5 +1,28 @@
 "use strict";
+// Afiseaza toate numerele pitagorice ale caror suma este 1000. (3 numere a, b, c se numesc pitagorice daca a^2 + b^2 = c^2)
+let x, y;
 
+const numbers = [];
+
+function random(min, max) {
+  return Math.trunc(Math.random() * (max - min + 1) + min);
+}
+
+while (x ** 2 + y ** 2 !== 1000 || numbers.length < 50) {
+  x = random(0, 30);
+  y = random(0, 30);
+  if (Math.pow(x, 2) + Math.pow(y, 2) == 1000) {
+    numbers.push(x);
+  }
+}
+console.log(numbers);
+
+const result = numbers.sort().filter(function (value, index, array) {
+  return !index || value != array[index - 1];
+});
+console.log(result);
+
+/*
 const person = {
   firstName: "Mihai",
   lastName: "Stan",
@@ -11,21 +34,6 @@ const person = {
 };
 
 // -------------------1-------------------
-// let dOB = new Date(person.dateOfBirth).getFullYear();
-// const currentYear = new Date().getFullYear();
-// const leapYearsCount = [];
-
-//check if leap
-// function leapYear(year) {
-//   return (year % 4 == 0 && year % 100 != 0) || year % 400 == 0;
-// }
-
-// while (dOB < currentYear) {
-//   if (leapYear(dOB) == true) {
-//     leapYearsCount.push(dOB);
-//   }
-//   dOB++;
-// }
 
 //verifica daca luna februarie are 28 sau 29 de zile
 function checkLeap(year) {
@@ -119,7 +127,7 @@ console.log(diferenta);
 //------------------7------------------------
 
 const vowels = ["a", "e", "i", "o", "u"];
-// Numarul de vocal din array
+// Numarul total de vocal din array
 const totalAmountOfVowels = person.hobbies
   .join("")
   .split("")
@@ -127,15 +135,9 @@ const totalAmountOfVowels = person.hobbies
 console.log(totalAmountOfVowels);
 
 //Numarul de vocale din fiecare hobby
-const hobbyVowels = {};
-
-// for (const x of person.hobbies) {
-//   hobbyVowels[x] = x.split("").filter((x) => vowels.includes(x)).length;
-// }
-
-//refactored
-person.hobbies.map(
-  (x) => (hobbyVowels[x] = x.split("").filter((x) => vowels.includes(x)).length)
+const numOfVow = person.hobbies.map(
+  (x) => `${x}: ${x.split("").filter((x) => vowels.includes(x)).length}`
 );
 
-console.log(hobbyVowels);
+console.log(numOfVow);
+ */
