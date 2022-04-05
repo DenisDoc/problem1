@@ -21,11 +21,10 @@ const result = numbers.sort().filter(function (value, index, array) {
 });
 console.log(result);
 
-/*
 const person = {
   firstName: "Mihai",
   lastName: "Stan",
-  dateOfBirth: "07-09-1990",
+  dateOfBirth: "04-06-1990",
   occupation: "engineer",
   nationality: "romanian",
   hobbies: ["cars", "planes", "music", "arts"],
@@ -34,35 +33,33 @@ const person = {
 
 // -------------------1-------------------
 
-//verifica daca luna februarie are 28 sau 29 de zile
-function checkLeap(year) {
-  const leap = new Date(year, 1, 28);
-  leap.setDate(leap.getDate() + 1);
-  return leap.getMonth() == 1;
+function leapYear(year) {
+  return (year % 4 == 0 && year % 100 != 0) || year % 400 == 0;
 }
+function calcAge(dOBirth) {
+  let dOB = new Date(dOBirth).getFullYear();
+  const currentYear = new Date().getFullYear();
+  const leapYearsCount = [];
 
-function calcAge(date) {
-  const dateOfBirth = new Date(date);
-  const currentTime = new Date();
-  const currentYear = currentTime.getFullYear();
-
-  let years = currentYear - dateOfBirth.getFullYear();
-
-  dateOfBirth.setFullYear(dateOfBirth.getFullYear() + years);
-
-  if (dateOfBirth > currentTime) {
-    years--;
-    dateOfBirth.setFullYear(dateOfBirth.getFullYear() - 1);
+  while (dOB < currentYear) {
+    if (leapYear(dOB) == true) {
+      leapYearsCount.push(dOB);
+    }
+    dOB++;
   }
-  const days = (currentTime.getTime() - dateOfBirth.getTime()) / 864e5;
-  return parseInt(years + days / (checkLeap(currentYear) ? 366 : 365));
+  const dateOfBirth = new Date(dOBirth).getTime();
+  const leapInMs = leapYearsCount.length * (24 * 60 * 60 * 1000);
+  const age = Math.floor(
+    (new Date() - dateOfBirth - leapInMs) / (365 * 24 * 60 * 60 * 1000)
+  );
+  return age;
 }
 console.log(
   `${person.firstName} ${person.lastName} is a ${calcAge(
     person.dateOfBirth
-  )} years old ${person.occupation}`
+  )} years old ${person.occupation}.`
 );
-
+/*
 //------------------- 2 ------------------
 
 let country;
@@ -124,14 +121,14 @@ const diferenta = even - odd;
 console.log(diferenta);
 
 //------------------7------------------------
-
+ */
 const vowels = ["a", "e", "i", "o", "u"];
 // Numarul total de vocal din array
-const totalAmountOfVowels = person.hobbies
-  .join("")
-  .split("")
-  .filter((x) => vowels.includes(x)).length;
-console.log(totalAmountOfVowels);
+// const totalAmountOfVowels = person.hobbies
+//   .join("")
+//   .split("")
+//   .filter((x) => vowels.includes(x)).length;
+// console.log(totalAmountOfVowels);
 
 //Numarul de vocale din fiecare hobby
 const numOfVow = person.hobbies.map(
@@ -139,4 +136,3 @@ const numOfVow = person.hobbies.map(
 );
 
 console.log(numOfVow);
- */
