@@ -2,7 +2,7 @@
 // Afiseaza toate numerele pitagorice ale caror suma este 1000. (3 numere a, b, c se numesc pitagorice daca a^2 + b^2 = c^2)
 
 let x, y, z, sum;
-let sortRandom = [];
+const sortRandom = [];
 const numbers = [];
 
 function random(min, max) {
@@ -23,7 +23,6 @@ while (numbers.length < 1) {
       numbers.push([sortRandom[0][0], sortRandom[0][1], sortRandom[0][2]]);
     }
   }
-
   sortRandom.pop();
 }
 console.log(
