@@ -1,7 +1,45 @@
 "use strict";
 // Afiseaza toate numerele pitagorice ale caror suma este 1000. (3 numere a, b, c se numesc pitagorice daca a^2 + b^2 = c^2)
 
-let x, y, z, ipotenuza;
+let x, y, z, sum;
+let sortRandom = [];
+const numbers = [];
+
+function random(min, max) {
+  return Math.trunc(Math.random() * (max - min + 1) + min);
+}
+
+while (numbers.length < 1) {
+  x = random(200, 425);
+  y = random(200, 425);
+  z = random(200, 425);
+  sum = 1000;
+  sortRandom.push([x, y, z].sort((a, b) => a - b));
+  if (
+    x !== y &&
+    x !== z &&
+    y !== z &&
+    sortRandom[0][0] ** 2 + sortRandom[0][1] ** 2 == sortRandom[0][2] ** 2 &&
+    sortRandom[0][0] + sortRandom[0][1] + sortRandom[0][2] == sum
+  ) {
+    numbers.push([sortRandom[0][0], sortRandom[0][1], sortRandom[0][2]]);
+  }
+  sortRandom.pop();
+}
+console.log(
+  `Numerele pitagorice ale caror suma este egala cu 1000 sunt: ${numbers[0][0]} ,${numbers[0][1]}, ${numbers[0][2]} `
+);
+// const result = numbers
+//   .sort()
+//   .map((x) => x.join(", "))
+//   .filter(function (value, index, array) {
+//     return !index || value != array[index - 1];
+//   });
+// console.log(result);
+/*
+
+
+let x, y, z,suma, ipotenuza;
 
 const numbers = [];
 
@@ -12,7 +50,8 @@ function random(min, max) {
 while (numbers.length < 20) {
   x = random(0, 30);
   y = random(0, 30);
-  z = 1000;
+  z = random(0, 30)
+  suma = 1000;
   ipotenuza = Math.max(x, y, z);
   if (x ** 2 + y ** 2 == ipotenuza) {
     numbers.push([x, y, Math.sqrt(ipotenuza)].sort());
@@ -27,6 +66,9 @@ const result = numbers
   });
 console.log(result);
 /*
+
+
+
 const person = {
   firstName: "Mihai",
   lastName: "Stan",
@@ -36,6 +78,7 @@ const person = {
   hobbies: ["cars", "planes", "music", "arts"],
   lotoNum: [2, 19, 33, 47, 26, 8],
 };
+
 
 // -------------------1-------------------
 
