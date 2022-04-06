@@ -14,20 +14,20 @@ while (numbers.length < 1) {
   y = random(200, 425);
   z = random(200, 425);
   sum = 1000;
-  sortRandom.push([x, y, z].sort((a, b) => a - b));
-  if (
-    x !== y &&
-    x !== z &&
-    y !== z &&
-    sortRandom[0][0] ** 2 + sortRandom[0][1] ** 2 == sortRandom[0][2] ** 2 &&
-    sortRandom[0][0] + sortRandom[0][1] + sortRandom[0][2] == sum
-  ) {
-    numbers.push([sortRandom[0][0], sortRandom[0][1], sortRandom[0][2]]);
+  if (x !== y && x !== z && y !== z) {
+    sortRandom.push([x, y, z].sort((a, b) => a - b));
+    if (
+      sortRandom[0][0] ** 2 + sortRandom[0][1] ** 2 == sortRandom[0][2] ** 2 &&
+      sortRandom[0][0] + sortRandom[0][1] + sortRandom[0][2] == sum
+    ) {
+      numbers.push([sortRandom[0][0], sortRandom[0][1], sortRandom[0][2]]);
+    }
   }
+
   sortRandom.pop();
 }
 console.log(
-  `Numerele pitagorice ale caror suma este egala cu 1000 sunt: ${numbers[0][0]} ,${numbers[0][1]}, ${numbers[0][2]} `
+  `Numerele pitagorice ale caror suma este egala cu 1000 sunt: ${numbers.toString()} `
 );
 // const result = numbers
 //   .sort()
