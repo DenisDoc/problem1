@@ -4,7 +4,7 @@ function pythagoreanTriplet(sum) {
   for (let x = 1; x < sum; x++) {
     for (let y = x + 1; y < sum; y++) {
       let z = sum - x - y;
-      if (x ** 2 + y ** 2 == z ** 2 && x + y + z == sum) {
+      if (x ** 2 + y ** 2 == z ** 2) {
         return `${x}, ${y}, ${z}`;
       }
     }
