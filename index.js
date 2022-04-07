@@ -1,18 +1,68 @@
 "use strict";
 
-function pythagoreanTriplet(sum) {
-  for (let x = 1; x < sum; x++) {
-    for (let y = x + 1; y < sum; y++) {
-      let z = sum - x - y;
-      if (x ** 2 + y ** 2 == z ** 2) {
-        return `${x}, ${y}, ${z}`;
-      }
-    }
-  }
+// 1. Se da un string care contine cuvinte separate prin ", ". Sa se afiseze cuvintele palindrom (identice in oglinda) in acelasi format.
+// ex: "mar, bob, rotor, aiurea" afiseaza "bob, rotor"
+
+const test =
+  "mar, rezistent, Bob, hematoterapie, rotor, Aiurea, unu, cojoc, reper, coprocultură, compliment, necuprins, hialoplasmă, english, word, racecar, 1000, 1881, minim";
+
+function palindrome(string) {
+  return string
+    .toLowerCase()
+    .replace(/ /g, "")
+    .split(",")
+    .map((x) => x.split("").reverse().join(""))
+    .filter((y) =>
+      string.toLowerCase().replace(/ /g, "").split(",").includes(y)
+    )
+    .join(", ");
 }
 
-const result = pythagoreanTriplet(1000);
+const result = palindrome(test);
 console.log(result);
+
+// 2. Se da un string de numere naturale. Sa se insereze intre oricare 2 numere media lor.
+
+const numbers = "2, 4, 10, 5, 31, 4, 20, 38, 66, 131, 34, 455, 10243, 11";
+function newString(strOfNum) {
+  const result = [];
+  const media = [];
+  const num = strOfNum
+    .replace(/ /g, "")
+    .split(",")
+    .map((x) => Math.floor(x));
+
+  let i = 1;
+  for (const x of num) {
+    media.push((x + num[i]) / 2);
+    i++;
+  }
+
+  while (media.length !== 0) {
+    result.push(num.shift(), media.shift());
+  }
+  result.pop();
+  return result.join(", ");
+}
+
+const result2 = newString(numbers);
+console.log(result2);
+// for (let i = 0; i, y < num.length; ) {
+//   newString.push(num.shift(), (num[i] + num[y]) / 2);
+// }
+// function pythagoreanTriplet(sum) {
+//   for (let x = 1; x < sum; x++) {
+//     for (let y = x + 1; y < sum; y++) {
+//       let z = sum - x - y;
+//       if (x ** 2 + y ** 2 == z ** 2) {
+//         return `${x}, ${y}, ${z}`;
+//       }
+//     }
+//   }
+// }
+
+// const result = pythagoreanTriplet(1000);
+// console.log(result);
 
 // let x, y, z, a, sum;
 // function pitTriplet(sum) {
@@ -164,7 +214,7 @@ console.log(diferenta);
 //------------------7------------------------
 
 const vowels = ["a", "e", "i", "o", "u"];
-// Numarul total de vocal din array
+// Numarul total de vocal din string
 const totalAmountOfVowels = person.hobbies
   .join("")
   .split("")
