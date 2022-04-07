@@ -1,10 +1,43 @@
 "use strict";
+
+function pythagoreanTriplet(sum) {
+  for (let x = 1; x < sum; x++) {
+    for (let y = x + 1; y < sum; y++) {
+      let z = sum - x - y;
+      if (x ** 2 + y ** 2 == z ** 2 && x + y + z == sum) {
+        return `${x}, ${y}, ${z}`;
+      }
+    }
+  }
+}
+
+const result = pythagoreanTriplet(1000);
+console.log(result);
+
+// let x, y, z, a, sum;
+// function pitTriplet(sum) {
+//   let m = 2;
+//   let k = 1;
+//   for (let n = 1; n < sum / 3; n++) {
+//      let a = k * (m ** 2 - n ** 2);
+//      let b = k * (2 * m * p);
+//      let c = k * (m ** 2 + n ** 2);
+//      console.log(a, b, c);
+//      let count = a + b + c;
+//      if (count == sum) {
+//        console.log(a, b, c);
+//        return `${a}, ${b} ${c}`;
+//      }
+//     m++;
+//     k++;
+//   }
+// }
+
+/*
 // Afiseaza toate numerele pitagorice ale caror suma este 1000. (3 numere a, b, c se numesc pitagorice daca a^2 + b^2 = c^2)
-
 let x, y, z, sum;
-const sortRandom = [];
 const numbers = [];
-
+const sortRandom = [];
 function random(min, max) {
   return Math.trunc(Math.random() * (max - min + 1) + min);
 }
@@ -28,43 +61,8 @@ while (numbers.length < 1) {
 console.log(
   `Numerele pitagorice ale caror suma este egala cu 1000 sunt: ${numbers.toString()} `
 );
-// const result = numbers
-//   .sort()
-//   .map((x) => x.join(", "))
-//   .filter(function (value, index, array) {
-//     return !index || value != array[index - 1];
-//   });
-// console.log(result);
-/*
 
 
-let x, y, z,suma, ipotenuza;
-
-const numbers = [];
-
-function random(min, max) {
-  return Math.trunc(Math.random() * (max - min + 1) + min);
-}
-
-while (numbers.length < 20) {
-  x = random(0, 30);
-  y = random(0, 30);
-  z = random(0, 30)
-  suma = 1000;
-  ipotenuza = Math.max(x, y, z);
-  if (x ** 2 + y ** 2 == ipotenuza) {
-    numbers.push([x, y, Math.sqrt(ipotenuza)].sort());
-  }
-}
-
-const result = numbers
-  .sort()
-  .map((x) => x.join(", "))
-  .filter(function (value, index, array) {
-    return !index || value != array[index - 1];
-  });
-console.log(result);
-/*
 
 
 
