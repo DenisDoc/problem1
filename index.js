@@ -22,12 +22,7 @@ console.log(result);
 //      let a = k * (m ** 2 - n ** 2);
 //      let b = k * (2 * m * p);
 //      let c = k * (m ** 2 + n ** 2);
-//      console.log(a, b, c);
-//      let count = a + b + c;
-//      if (count == sum) {
-//        console.log(a, b, c);
-//        return `${a}, ${b} ${c}`;
-//      }
+//
 //     m++;
 //     k++;
 //   }
