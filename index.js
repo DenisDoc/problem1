@@ -23,46 +23,35 @@ console.log(result);
 
 // 2. Se da un string de numere naturale. Sa se insereze intre oricare 2 numere media lor.
 
-const numbers = "2, 4, 10, 5, 31, 4, 20, 38, 66, 131, 34, 455, 10243, 11";
-function newString(strOfNum) {
-  const result = [];
-  const media = [];
-  const num = strOfNum
-    .replace(/ /g, "")
-    .split(",")
-    .map((x) => Math.floor(x));
-
-  let i = 1;
-  for (const x of num) {
-    media.push((x + num[i]) / 2);
-    i++;
+const numbers = "2, 4, 10, 5, 31, 4, 20, 38, 66, 131, 34, 455, 10243, 11, 12";
+function numAndMed(strOfNum) {
+  const num = strOfNum.split(",").map((x) => Math.floor(x));
+  const media = num.map((x, y) =>
+    !isNaN((x + num[y + 1]) / 2) ? (x + num[y + 1]) / 2 : ""
+  );
+  return num
+    .map((x, i) => [x, media[i]])
+    .map((y, i) =>
+      num[i] !== num[num.length - 1] ? y.join(", ") : y.join(".")
+    )
+    .join(", ");
+}
+const result2 = numAndMed(numbers);
+console.log(result2);
+/*
+function pythagoreanTriplet(sum) {
+  for (let x = 1; x < sum; x++) {
+    for (let y = x + 1; y < sum; y++) {
+      let z = sum - x - y;
+      if (x ** 2 + y ** 2 == z ** 2) {
+        return `${x}, ${y}, ${z}`;
+      }
+    }
   }
-
-  while (media.length !== 0) {
-    result.push(num.shift(), media.shift());
-  }
-  result.pop();
-  return result.join(", ");
 }
 
-const result2 = newString(numbers);
-console.log(result2);
-// for (let i = 0; i, y < num.length; ) {
-//   newString.push(num.shift(), (num[i] + num[y]) / 2);
-// }
-// function pythagoreanTriplet(sum) {
-//   for (let x = 1; x < sum; x++) {
-//     for (let y = x + 1; y < sum; y++) {
-//       let z = sum - x - y;
-//       if (x ** 2 + y ** 2 == z ** 2) {
-//         return `${x}, ${y}, ${z}`;
-//       }
-//     }
-//   }
-// }
-
-// const result = pythagoreanTriplet(1000);
-// console.log(result);
+const result3 = pythagoreanTriplet(1000);
+console.log(result3);
 
 // let x, y, z, a, sum;
 // function pitTriplet(sum) {
@@ -78,7 +67,7 @@ console.log(result2);
 //   }
 // }
 
-/*
+
 // Afiseaza toate numerele pitagorice ale caror suma este 1000. (3 numere a, b, c se numesc pitagorice daca a^2 + b^2 = c^2)
 let x, y, z, sum;
 const numbers = [];
