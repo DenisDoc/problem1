@@ -23,14 +23,15 @@ console.log(result);
 
 // 2. Se da un string de numere naturale. Sa se insereze intre oricare 2 numere media lor.
 
-const numbers = "2, 4, 10, 5, 31, 4, 20, 38, 66, 131, 34, 455, 10243, 11, 12";
+const numbers =
+  " -1, 15, 2, 4, 10, 5, 31, 4, 20, 38, 66, 131, 34, 455, 10243, 11, 12";
 function numAndMed(strOfNum) {
   const num = strOfNum.split(",").map((x) => Math.floor(x));
-  const media = num.map((x, y) =>
+  const med = num.map((x, y) =>
     !isNaN((x + num[y + 1]) / 2) ? (x + num[y + 1]) / 2 : ""
   );
   return num
-    .map((x, i) => [x, media[i]])
+    .map((x, i) => [x, med[i]])
     .map((y, i) =>
       num[i] !== num[num.length - 1] ? y.join(", ") : y.join(".")
     )
@@ -38,6 +39,7 @@ function numAndMed(strOfNum) {
 }
 const result2 = numAndMed(numbers);
 console.log(result2);
+
 /*
 function pythagoreanTriplet(sum) {
   for (let x = 1; x < sum; x++) {
