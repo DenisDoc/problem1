@@ -3,10 +3,10 @@
 // 1. Se da un string care contine cuvinte separate prin ", ". Sa se afiseze cuvintele palindrom (identice in oglinda) in acelasi format.
 // ex: "mar, bob, rotor, aiurea" afiseaza "bob, rotor"
 
-const test =
+const words =
   "mar, rezistent, Bob, hematoterapie, rotor, Aiurea, unu, cojoc, reper, coprocultură, compliment, necuprins, hialoplasmă, english, word, racecar, 1000, 1881, minim";
 
-function palindrome(string) {
+function findPalindrome(string) {
   return string
     .toLowerCase()
     .split(", ")
@@ -14,8 +14,8 @@ function palindrome(string) {
     .join(", ");
 }
 
-const result = palindrome(test);
-console.log(result);
+const palindromes = findPalindrome(words);
+console.log(palindromes);
 
 // 2. Se da un array* de numere naturale. Sa se insereze intre oricare 2 numere media lor.
 
@@ -23,14 +23,19 @@ const numbers = [
   -1, 15, 2, 4, 10, 5, 31, 4, 20, 38, 66, 131, 34, 455, 10243, 11, 12,
 ];
 
-function numAndMed(strOfNum) {
-  return strOfNum
-    .map((x, i) => [x, (x + strOfNum[i + 1]) / 2])
-    .flat()
-    .filter((z) => !isNaN(z));
+function computeAverage(numbers) {
+  return numbers
+    .map((x, i) => {
+      if (i == numbers.length - 1) {
+        return x;
+      } else {
+        return [x, (x + numbers[i + 1]) / 2];
+      }
+    })
+    .flat();
 }
-const result2 = numAndMed(numbers);
-console.log(result2);
+const numbersAndAverage = computeAverage(numbers);
+console.log(numbersAndAverage);
 
 /*
 function pythagoreanTriplet(sum) {
