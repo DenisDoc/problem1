@@ -25,17 +25,13 @@ const numbers = [
 
 function computeAverage(numbers) {
   return numbers
-    .map((x, i) => {
-      if (i == numbers.length - 1) {
-        return x;
-      } else {
-        return [x, (x + numbers[i + 1]) / 2];
-      }
-    })
+    .map((x, i) =>
+      i === numbers.length - 1 ? x : [x, (x + numbers[i + 1]) / 2]
+    )
     .flat();
 }
-const numbersAndAverage = computeAverage(numbers);
-console.log(numbersAndAverage);
+const numbersAndAvg = computeAverage(numbers);
+console.log(numbersAndAvg);
 
 /*
 function pythagoreanTriplet(sum) {
