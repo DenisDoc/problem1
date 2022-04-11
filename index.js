@@ -10,7 +10,7 @@ function palindrome(string) {
   return string
     .toLowerCase()
     .split(", ")
-    .filter((y) => y.includes(y.split("").reverse().join("")))
+    .filter((y) => y === y.split("").reverse().join(""))
     .join(", ");
 }
 
@@ -23,20 +23,12 @@ const numbers = [
   -1, 15, 2, 4, 10, 5, 31, 4, 20, 38, 66, 131, 34, 455, 10243, 11, 12,
 ];
 
-function numAndMed(arrOfNum) {
-  const med = arrOfNum.map((a, b) => (a + arrOfNum[b + 1]) / 2);
-  med.pop();
-  const count = arrOfNum.length + med.length;
-  let y = 1;
-  let i = 0;
-  while (arrOfNum.length < count) {
-    arrOfNum.splice(y, 0, med[i]);
-    y += 2;
-    i++;
-  }
-  return arrOfNum;
+function numAndMed(strOfNum) {
+  return strOfNum
+    .map((x, i) => [x, (x + strOfNum[i + 1]) / 2])
+    .flat()
+    .filter((z) => !isNaN(z));
 }
-
 const result2 = numAndMed(numbers);
 console.log(result2);
 
