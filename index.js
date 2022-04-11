@@ -9,34 +9,34 @@ const test =
 function palindrome(string) {
   return string
     .toLowerCase()
-    .replace(/ /g, "")
-    .split(",")
-    .map((x) => x.split("").reverse().join(""))
-    .filter((y) =>
-      string.toLowerCase().replace(/ /g, "").split(",").includes(y)
-    )
+    .split(", ")
+    .filter((y) => y.includes(y.split("").reverse().join("")))
     .join(", ");
 }
 
 const result = palindrome(test);
 console.log(result);
 
-// 2. Se da un string de numere naturale. Sa se insereze intre oricare 2 numere media lor.
+// 2. Se da un array* de numere naturale. Sa se insereze intre oricare 2 numere media lor.
 
-const numbers =
-  " -1, 15, 2, 4, 10, 5, 31, 4, 20, 38, 66, 131, 34, 455, 10243, 11, 12";
-function numAndMed(strOfNum) {
-  const num = strOfNum.split(",").map((x) => Math.floor(x));
-  const med = num.map((x, y) =>
-    !isNaN((x + num[y + 1]) / 2) ? (x + num[y + 1]) / 2 : ""
-  );
-  return num
-    .map((x, i) => [x, med[i]])
-    .map((y, i) =>
-      num[i] !== num[num.length - 1] ? y.join(", ") : y.join(".")
-    )
-    .join(", ");
+const numbers = [
+  -1, 15, 2, 4, 10, 5, 31, 4, 20, 38, 66, 131, 34, 455, 10243, 11, 12,
+];
+
+function numAndMed(arrOfNum) {
+  const med = arrOfNum.map((a, b) => (a + arrOfNum[b + 1]) / 2);
+  med.pop();
+  const count = arrOfNum.length + med.length;
+  let y = 1;
+  let i = 0;
+  while (arrOfNum.length < count) {
+    arrOfNum.splice(y, 0, med[i]);
+    y += 2;
+    i++;
+  }
+  return arrOfNum;
 }
+
 const result2 = numAndMed(numbers);
 console.log(result2);
 
@@ -98,10 +98,6 @@ console.log(
   `Numerele pitagorice ale caror suma este egala cu 1000 sunt: ${numbers.toString()} `
 );
 
-
-
-
-
 const person = {
   firstName: "Mihai",
   lastName: "Stan",
@@ -141,6 +137,11 @@ console.log(
     person.dateOfBirth
   )} years old ${person.occupation}.`
 );
+
+
+
+
+
 
 //------------------- 2 ------------------
 
