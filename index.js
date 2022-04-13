@@ -1,8 +1,107 @@
 "use strict";
 
+
+// Context: 
+// Detii un magazin care vinde dulciuri si pentru
+// ca e stare de urgenta si nu mai intra nimeni
+// in magazin risti sa dai faliment, asa ca te-ai
+// hotarat sa iti construiesti o platforma 
+// online ca sa-ti vinzi produsele.
+
+// 1. Defineste o clasa pe nume Sweet care sa contina urmatoarele proprietati:
+// - nume
+// - descriere
+// - culoare
+// - pret/gr
+// - cantitate (gr)
+// - informatii nutritionale (calorii /100g)
+// - tip (jeleu, ciocolata, inghetata etc.)
+
+
+
+class Sweet {
+  constructor(product){
+    this.productName = product[0];
+    this.description = product[1];
+    this.color = product[2];
+    this.pricePerGrams = product[3];
+    this.amountInGrams = product[4];
+    this.kcalPerGram = product[5];
+    this.type = product[6];
+  }
+  
+  showBasicDetails(){
+    console.log(`${this.productName} - ${this.description}`)
+  }
+
+  showBasicDetailsByType(){
+    if(this.type === "Croissan"){
+      console.log(`${this.productName} - ${this.description}`);
+  }
+  }
+  
+}
+
+fetch("./sweets.json").then(response => {
+    return response.json();
+}).then(jsondata => {
+  let i = 0;
+  while ( i < jsondata.produse.length ) {
+    let porducts = new Sweet(jsondata.produse[i])
+    i++
+    porducts.showBasicDetails();
+    porducts.showBasicDetailsByType()
+  
+}})
+
+
+// 2. Sa se incarce un numar de produse de tip Sweet
+//  dintr-un fisier de tip json si sa se afiseze
+//   obiectele incarcate in formatul "<nume> - <descriere>".
+
+
+// 3. Sa se afiseze produsele de un anumit tip dat 
+// in acelasi format de mai sus.
+
+
+// 4. Sa se afiseze cantitatea totala pentru fiecare 
+// tip de produs.
+
+// 5. Sa se calculeze stocul (valoarea) fiecarui 
+// tip de produs din magazin, cat si valoarea totala 
+// a produselor.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+
 // 1. Se da un string care contine cuvinte separate prin ", ". Sa se afiseze cuvintele palindrom (identice in oglinda) in acelasi format.
 // ex: "mar, bob, rotor, aiurea" afiseaza "bob, rotor"
 
+
+person.calcAverage();
 const words =
   "mar, rezistent, Bob, hematoterapie, rotor, Aiurea, unu, cojoc, reper, coprocultură, compliment, necuprins, hialoplasmă, english, word, racecar, 1000, 1881, minim";
 
@@ -26,14 +125,14 @@ const numbers = [
 function computeAverage(numbers) {
   return numbers
     .map((x, i) =>
-      i === numbers.length - 1 ? x : [x, (x + numbers[i + 1]) / 2]
+      (i === numbers.length - 1) ? x : [x, (x + numbers[i + 1]) / 2]
     )
     .flat();
 }
 const numbersAndAvg = computeAverage(numbers);
 console.log(numbersAndAvg);
 
-/*
+
 function pythagoreanTriplet(sum) {
   for (let x = 1; x < sum; x++) {
     for (let y = x + 1; y < sum; y++) {
