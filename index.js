@@ -31,28 +31,58 @@ class Sweet {
   }
   
   showBasicDetails(){
-    console.log(`${this.productName} - ${this.description}`)
+   return console.log(`${this.productName} - ${this.description}`);
   }
 
   showBasicDetailsByType(){
-    if(this.type === "Croissan"){
-      console.log(`${this.productName} - ${this.description}`);
+    if(this.type === "Biscuiti"){
+     return console.log(`${this.productName} - ${this.description}`);
+  } 
   }
+
+  showTotalAmount(){
+   return console.log(`${this.amountInGrams} grame`);;
   }
-  
+
+  showEachProductStock(){
+    console.log(`${Math.floor(this.amountInGrams * this.pricePerGrams)} lei`);
+    let eachProductStock = `${Math.floor(this.amountInGrams * this.pricePerGrams)} lei`
+    return eachProductStock; 
+  } 
 }
 
-fetch("./sweets.json").then(response => {
-    return response.json();
-}).then(jsondata => {
-  let i = 0;
-  while ( i < jsondata.produse.length ) {
-    let porducts = new Sweet(jsondata.produse[i])
-    i++
-    porducts.showBasicDetails();
-    porducts.showBasicDetailsByType()
+
+loadJSON().catch( error => { console.log(error) })
   
-}})
+async function loadJSON(){
+  const response = await fetch("./sweets.json")
+  const jsonData = await response.json()
+  // console.log(jsonData);
+      let i = 0;
+      let stock = 0
+      while ( i < jsonData.length ) {
+          let products = new Sweet(jsonData[i])
+          i++
+          products.showBasicDetails();
+          products.showBasicDetailsByType();
+          products. showTotalAmount();
+          stock += Number(products.showEachProductStock().split(" ")[0])
+      }
+      console.log(stock);
+}
+
+// fetch("./sweets.json").then(response => {
+//     return response.json();
+// })
+// .then(jsondata => {
+//   let i = 0;
+//   while ( i < jsondata.length ) {
+//     let products = new Sweet(jsondata[i])
+//     i++
+//     products.showBasicDetails();
+//     products.showBasicDetailsByType()
+// }
+// })
 
 
 // 2. Sa se incarce un numar de produse de tip Sweet

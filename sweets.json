@@ -1,11 +1,11 @@
-{
-    "produse": [
+
+     [
         [
         "Belvita",
         "Biscuiti cu cereale si bucatele de ciocolata, fortifiati cu minerale (fier, magneziu) si vitamine (E, B1)",
         "galbena", 
-        22.97,
-        300,
+        0.02297,
+        14690,
         440,
         "Biscuiti"
         ],
@@ -13,8 +13,8 @@
         "7 Days Max",
         "Croissant cu umplutura de cacao",
         "rosie", 
-        28.82,
-        85,
+        0.02882,
+        7565,
         456,
         "Croissant"
         ],
@@ -22,10 +22,18 @@
         "Milka",
         "Biscuiti Milka Choco Minis",
         "mov", 
-        26.67,
-        150,
+        0.02667,
+        2250,
         505,
         "Biscuiti"
+        ],
+        [
+        "Knoppers",
+        "Napolitana cu lapte si alune de padure",
+        "albastru", 
+        0.084,
+        5000,
+        547,
+        "Napolitana"
         ]
     ]
-}
