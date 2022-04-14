@@ -35,17 +35,17 @@ class Sweet {
   }
 
   showBasicDetailsByType(){
-    if(this.type === "Biscuiti"){
+    if(this.type === "Croissant"){
      return console.log(`${this.productName} - ${this.description}`);
   } 
   }
 
   showTotalAmount(){
-   return console.log(`${this.amountInGrams} grame`);;
+   return console.log(`${this.productName} - ${this.amountInGrams} grame`);;
   }
 
   showEachProductStock(){
-    console.log(`${Math.floor(this.amountInGrams * this.pricePerGrams)} lei`);
+    console.log(`${this.productName} - ${Math.floor(this.amountInGrams * this.pricePerGrams)} lei`);
     let eachProductStock = `${Math.floor(this.amountInGrams * this.pricePerGrams)} lei`
     return eachProductStock; 
   } 
@@ -68,7 +68,7 @@ async function loadJSON(){
           products. showTotalAmount();
           stock += Number(products.showEachProductStock().split(" ")[0])
       }
-      console.log(stock);
+      console.log(`Valoarea totala a produselor - ${stock}`);
 }
 
 // fetch("./sweets.json").then(response => {
