@@ -35,7 +35,7 @@ class Sweet {
   }
 
   showBasicDetailsByType(){
-    if(this.type === "Croissant"){
+    if(this.type === "Napolitana"){
      return console.log(`${this.productName} - ${this.description}`);
   } 
   }
