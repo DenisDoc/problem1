@@ -57,26 +57,26 @@ async function loadJSON(){
     const basicDetails = []
     const basicDetailsByType =[]
     const amountInGrams = []
-    const eachProductStock = []
-    let stock = 0 
+    const stock = []
+    let totalAmount = 0 
     
     while ( i < jsonData.length ) {
         let products = new Sweet(jsonData[i])
         basicDetails.push(products.computeBasicDetails());
         amountInGrams.push(products.computeTotalAmount());
-        eachProductStock.push(products.computeEachProductStock());
-        stock += Number(products.computeEachProductStock().split(" ")[2])
+        stock.push(products.computeEachProductStock());
+        totalAmount += Number(products.computeEachProductStock().split(" ")[2])
         if(products.type ===  type){
           basicDetailsByType.push(products.computeBasicDetailsByType())
         }
         i++
     }
-    eachProductStock.push(`Suma totala: ${stock}`)
+    stock.push(`Suma totala: ${totalAmount}`)
 
     console.log(basicDetails);
     console.log(basicDetailsByType);
     console.log(amountInGrams);
-    console.log(eachProductStock);
+    console.log(stock);
 }
 
 
