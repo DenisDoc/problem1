@@ -21,13 +21,13 @@
 
 class Sweet {
   constructor(product){
-    this.productName = product[0];
-    this.description = product[1];
-    this.color = product[2];
-    this.pricePerGrams = product[3];
-    this.amountInGrams = product[4];
-    this.kcalPerGram = product[5];
-    this.type = product[6];
+    this.productName = product.productName;
+    this.description = product.description;
+    this.color = product.color;
+    this.pricePerGrams = product.pricePerGrams;
+    this.amountInGrams = product.amountInGrams;
+    this.kcalPerGram = product.kcalPerGram;
+    this.type = product.type;
   }
   
   computeBasicDetails(){
@@ -52,7 +52,6 @@ async function loadJSON(){
   const response = await fetch("./sweets.json")
   const jsonData = await response.json()
 
-    let i = 0;
     const type = "Napolitana";
     const basicDetails = []
     const basicDetailsByType =[]
@@ -60,8 +59,8 @@ async function loadJSON(){
     const stock = []
     let totalAmount = 0 
     
-    while ( i < jsonData.length ) {
-        let products = new Sweet(jsonData[i])
+    for(const x in jsonData){
+        let products = new Sweet(jsonData[x])
         basicDetails.push(products.computeBasicDetails());
         amountInGrams.push(products.computeTotalAmount());
         stock.push(products.computeEachProductStock());
@@ -69,7 +68,6 @@ async function loadJSON(){
         if(products.type ===  type){
           basicDetailsByType.push(products.computeBasicDetailsByType())
         }
-        i++
     }
     stock.push(`Suma totala: ${totalAmount} lei`)
 
