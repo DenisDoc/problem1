@@ -30,46 +30,55 @@ class Sweet {
     this.type = product[6];
   }
   
-  showBasicDetails(){
-   return console.log(`${this.productName} - ${this.description}`);
+  computeBasicDetails(){
+    return `${this.productName} - ${this.description}`;
   }
 
-  showBasicDetailsByType(){
-    if(this.type === "Napolitana"){
-     return console.log(`${this.productName} - ${this.description}`);
+  computeBasicDetailsByType(){
+    return `${this.productName} - ${this.description}`;
   } 
+  
+  computeTotalAmount(){
+    return `${this.productName} - ${this.amountInGrams} grame`;
   }
 
-  showTotalAmount(){
-   return console.log(`${this.productName} - ${this.amountInGrams} grame`);;
-  }
-
-  showEachProductStock(){
-    console.log(`${this.productName} - ${Math.floor(this.amountInGrams * this.pricePerGrams)} lei`);
-    let eachProductStock = `${Math.floor(this.amountInGrams * this.pricePerGrams)} lei`
-    return eachProductStock; 
+  computeEachProductStock(){
+    return `${this.productName} - ${Math.floor(this.amountInGrams * this.pricePerGrams)} lei`
   } 
 }
 
-
 loadJSON().catch( error => { console.log(error) })
-  
 async function loadJSON(){
   const response = await fetch("./sweets.json")
   const jsonData = await response.json()
-  // console.log(jsonData);
-      let i = 0;
-      let stock = 0
-      while ( i < jsonData.length ) {
-          let products = new Sweet(jsonData[i])
-          i++
-          products.showBasicDetails();
-          products.showBasicDetailsByType();
-          products. showTotalAmount();
-          stock += Number(products.showEachProductStock().split(" ")[0])
-      }
-      console.log(`Valoarea totala a produselor - ${stock}`);
+
+    let i = 0;
+    const type = "Napolitana";
+    const basicDetails = []
+    const basicDetailsByType =[]
+    const amountInGrams = []
+    const eachProductStock = []
+    let stock = 0 
+    
+    while ( i < jsonData.length ) {
+        let products = new Sweet(jsonData[i])
+        basicDetails.push(products.computeBasicDetails());
+        amountInGrams.push(products.computeTotalAmount());
+        eachProductStock.push(products.computeEachProductStock());
+        stock += Number(products.computeEachProductStock().split(" ")[2])
+        if(products.type ===  type){
+          basicDetailsByType.push(products.computeBasicDetailsByType())
+        }
+        i++
+    }
+    eachProductStock.push(`Suma totala: ${stock}`)
+
+    console.log(basicDetails);
+    console.log(basicDetailsByType);
+    console.log(amountInGrams);
+    console.log(eachProductStock);
 }
+
 
 // fetch("./sweets.json").then(response => {
 //     return response.json();
