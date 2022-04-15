@@ -71,7 +71,7 @@ async function loadJSON(){
         }
         i++
     }
-    stock.push(`Suma totala: ${totalAmount}`)
+    stock.push(`Suma totala: ${totalAmount} lei`)
 
     console.log(basicDetails);
     console.log(basicDetailsByType);
