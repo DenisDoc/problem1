@@ -64,31 +64,38 @@ async function loadJSON(){
     const response = await fetch("./sweets.json")
     const jsonData = await response.json()
 
-    const type = "Napolitana";
+    const productsContainer = []
     const basicDetails = []
     const basicDetailsByType =[]
     const amountInGrams = []
     const stock = []
+
+    const type = "Napolitana";
     let totalAmount = 0 
     
+
     for(const x in jsonData){
-        basicDetails.push(new Sweet(jsonData[x]).computeBasicDetails());
+      productsContainer.push(new Sweet(jsonData[x]));
     }
 
-    for (const x in jsonData){
-        amountInGrams.push(new Sweet(jsonData[x]).computeTotalAmount());
+    for(const x in productsContainer){
+        basicDetails.push(productsContainer[x].computeBasicDetails());
     }
 
-    for (const x in jsonData){
-        stock.push(new Sweet(jsonData[x]).computeEachProductStock());
+    for (const x in productsContainer){
+        amountInGrams.push(productsContainer[x].computeTotalAmount());
     }
 
-    for (const x in jsonData){
-        totalAmount += Number(new Sweet(jsonData[x]).computeEachProductStock().split(" ")[2])
+    for (const x in productsContainer){
+        stock.push(productsContainer[x].computeEachProductStock());
     }
 
-    for (const x in jsonData){
-        let products = new Sweet(jsonData[x])
+    for (const x in productsContainer){
+        totalAmount += Number(productsContainer[x].computeEachProductStock().split(" ")[2])
+    }
+
+    for (const x in productsContainer){
+        let products = productsContainer[x]
         if(products.type ===  type){
             basicDetailsByType.push(products.computeBasicDetailsByType())
         }
