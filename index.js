@@ -43,7 +43,8 @@ class Sweet {
         this.amountInGrams = product.amountInGrams;
         this.kcalPerGram = product.kcalPerGram;
         this.type = product.type;
-  }
+         // Object.assign(this, product)
+    }
 
     computeBasicDetails = () => 
         `${this.productName} - ${this.description}`;
@@ -64,19 +65,14 @@ async function loadJSON(){
     const response = await fetch("./sweets.json")
     const jsonData = await response.json()
 
-    const productsContainer = []
+    const type = "Napolitana";
+    let totalAmount = 0 
+
     const basicDetails = []
     const basicDetailsByType =[]
     const amountInGrams = []
     const stock = []
-
-    const type = "Napolitana";
-    let totalAmount = 0 
-    
-
-    for(const x in jsonData){
-      productsContainer.push(new Sweet(jsonData[x]));
-    }
+    const productsContainer = jsonData.map(x => new Sweet(x));
 
     for(const x in productsContainer){
         basicDetails.push(productsContainer[x].computeBasicDetails());
@@ -95,12 +91,12 @@ async function loadJSON(){
     }
 
     for (const x in productsContainer){
-        let products = productsContainer[x]
-        if(products.type ===  type){
-            basicDetailsByType.push(products.computeBasicDetailsByType())
+        let product = productsContainer[x]
+        if(product.type ===  type){
+            basicDetailsByType.push(product.computeBasicDetailsByType())
         }
     }
-
+   
     stock.push(`Suma totala: ${totalAmount} lei`)
 
     console.log(basicDetails);
