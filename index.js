@@ -17,81 +17,6 @@
 // - informatii nutritionale (calorii /100g)
 // - tip (jeleu, ciocolata, inghetata etc.)
 
-
-
-class Sweet {
-  constructor(product){
-    this.productName = product.productName;
-    this.description = product.description;
-    this.color = product.color;
-    this.pricePerGrams = product.pricePerGrams;
-    this.amountInGrams = product.amountInGrams;
-    this.kcalPerGram = product.kcalPerGram;
-    this.type = product.type;
-  }
-  
-  computeBasicDetails(){
-    return `${this.productName} - ${this.description}`;
-  }
-
-  computeBasicDetailsByType(){
-    return `${this.productName} - ${this.description}`;
-  } 
-  
-  computeTotalAmount(){
-    return `${this.productName} - ${this.amountInGrams} grame`;
-  }
-
-  computeEachProductStock(){
-    return `${this.productName} - ${Math.floor(this.amountInGrams * this.pricePerGrams)} lei`
-  } 
-}
-
-loadJSON().catch( error => { console.log(error) })
-async function loadJSON(){
-  const response = await fetch("./sweets.json")
-  const jsonData = await response.json()
-
-    const type = "Napolitana";
-    const basicDetails = []
-    const basicDetailsByType =[]
-    const amountInGrams = []
-    const stock = []
-    let totalAmount = 0 
-    
-    for(const x in jsonData){
-        let products = new Sweet(jsonData[x])
-        basicDetails.push(products.computeBasicDetails());
-        amountInGrams.push(products.computeTotalAmount());
-        stock.push(products.computeEachProductStock());
-        totalAmount += Number(products.computeEachProductStock().split(" ")[2])
-        if(products.type ===  type){
-          basicDetailsByType.push(products.computeBasicDetailsByType())
-        }
-    }
-    stock.push(`Suma totala: ${totalAmount} lei`)
-
-    console.log(basicDetails);
-    console.log(basicDetailsByType);
-    console.log(amountInGrams);
-    console.log(stock);
-}
-
-
-// fetch("./sweets.json").then(response => {
-//     return response.json();
-// })
-// .then(jsondata => {
-//   let i = 0;
-//   while ( i < jsondata.length ) {
-//     let products = new Sweet(jsondata[i])
-//     i++
-//     products.showBasicDetails();
-//     products.showBasicDetailsByType()
-// }
-// })
-
-
 // 2. Sa se incarce un numar de produse de tip Sweet
 //  dintr-un fisier de tip json si sa se afiseze
 //   obiectele incarcate in formatul "<nume> - <descriere>".
@@ -109,28 +34,77 @@ async function loadJSON(){
 // a produselor.
 
 
+class Sweet {
+    constructor(product){
+        this.productName = product.productName;
+        this.description = product.description;
+        this.color = product.color;
+        this.pricePerGrams = product.pricePerGrams;
+        this.amountInGrams = product.amountInGrams;
+        this.kcalPerGram = product.kcalPerGram;
+        this.type = product.type;
+  }
 
+    computeBasicDetails = () => 
+        `${this.productName} - ${this.description}`;
+  
+    computeBasicDetailsByType = () =>
+        `${this.productName} - ${this.description}`;
+   
+    computeTotalAmount = () => 
+        `${this.productName} - ${this.amountInGrams} grame`;
+    
+    computeEachProductStock =() =>
+        `${this.productName} - ${Math.floor(this.amountInGrams * this.pricePerGrams)} lei`
+}
 
+loadJSON().catch( error => { console.log(error) })
 
+async function loadJSON(){
+    const response = await fetch("./sweets.json")
+    const jsonData = await response.json()
 
+    const type = "Napolitana";
+    const basicDetails = []
+    const basicDetailsByType =[]
+    const amountInGrams = []
+    const stock = []
+    let totalAmount = 0 
+    
+    for(const x in jsonData){
+        let products = new Sweet(jsonData[x])
+        basicDetails.push(products.computeBasicDetails());
+    }
 
+    for (const x in jsonData){
+        let products = new Sweet(jsonData[x])
+        amountInGrams.push(products.computeTotalAmount());
+    }
 
+    for (const x in jsonData){
+        let products = new Sweet(jsonData[x])
+        stock.push(products.computeEachProductStock());
+    }
 
+    for (const x in jsonData){
+        let products = new Sweet(jsonData[x])
+        totalAmount += Number(products.computeEachProductStock().split(" ")[2])
+    }
 
+    for (const x in jsonData){
+        let products = new Sweet(jsonData[x])
+        if(products.type ===  type){
+            basicDetailsByType.push(products.computeBasicDetailsByType())
+        }
+    }
 
+    stock.push(`Suma totala: ${totalAmount} lei`)
 
-
-
-
-
-
-
-
-
-
-
-
-
+    console.log(basicDetails);
+    console.log(basicDetailsByType);
+    console.log(amountInGrams);
+    console.log(stock);
+}
 
 /*
 
