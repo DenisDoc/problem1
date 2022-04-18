@@ -65,38 +65,19 @@ async function loadJSON(){
     const response = await fetch("./sweets.json")
     const jsonData = await response.json()
 
-    const type = "Napolitana";
-    let totalAmount = 0 
+    const type = "Biscuiti";
 
-    const basicDetails = []
-    const basicDetailsByType =[]
-    const amountInGrams = []
-    const stock = []
     const productsContainer = jsonData.map(x => new Sweet(x));
+    const basicDetails = productsContainer.map(x => x.computeBasicDetails())
+    const amountInGrams = productsContainer.map(x=> x.computeTotalAmount())
+    const stock = productsContainer.map(x => x.computeEachProductStock())
+    const basicDetailsByType = productsContainer
+      .filter(x => x.type === type)
+      .map(x=> x.computeBasicDetailsByType())
 
-    for(const x in productsContainer){
-        basicDetails.push(productsContainer[x].computeBasicDetails());
-    }
-
-    for (const x in productsContainer){
-        amountInGrams.push(productsContainer[x].computeTotalAmount());
-    }
-
-    for (const x in productsContainer){
-        stock.push(productsContainer[x].computeEachProductStock());
-    }
-
-    for (const x in productsContainer){
-        totalAmount += Number(productsContainer[x].computeEachProductStock().split(" ")[2])
-    }
-
-    for (const x in productsContainer){
-        let product = productsContainer[x]
-        if(product.type ===  type){
-            basicDetailsByType.push(product.computeBasicDetailsByType())
-        }
-    }
-   
+    const totalAmount = productsContainer
+      .map(x => Math.floor(x.amountInGrams * x.pricePerGrams))
+      .reduce((a,b)=> a + b)
     stock.push(`Suma totala: ${totalAmount} lei`)
 
     console.log(basicDetails);
