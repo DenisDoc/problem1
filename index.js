@@ -72,23 +72,19 @@ async function loadJSON(){
     let totalAmount = 0 
     
     for(const x in jsonData){
-        let products = new Sweet(jsonData[x])
-        basicDetails.push(products.computeBasicDetails());
+        basicDetails.push(new Sweet(jsonData[x]).computeBasicDetails());
     }
 
     for (const x in jsonData){
-        let products = new Sweet(jsonData[x])
-        amountInGrams.push(products.computeTotalAmount());
+        amountInGrams.push(new Sweet(jsonData[x]).computeTotalAmount());
     }
 
     for (const x in jsonData){
-        let products = new Sweet(jsonData[x])
-        stock.push(products.computeEachProductStock());
+        stock.push(new Sweet(jsonData[x]).computeEachProductStock());
     }
 
     for (const x in jsonData){
-        let products = new Sweet(jsonData[x])
-        totalAmount += Number(products.computeEachProductStock().split(" ")[2])
+        totalAmount += Number(new Sweet(jsonData[x]).computeEachProductStock().split(" ")[2])
     }
 
     for (const x in jsonData){
