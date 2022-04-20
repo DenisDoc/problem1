@@ -33,59 +33,53 @@
 // tip de produs din magazin, cat si valoarea totala 
 // a produselor.
 
-
 class Sweet {
-    constructor(product){
-        this.productName = product.productName;
-        this.description = product.description;
-        this.color = product.color;
-        this.pricePerGrams = product.pricePerGrams;
-        this.amountInGrams = product.amountInGrams;
-        this.kcalPerGram = product.kcalPerGram;
-        this.type = product.type;
-         // Object.assign(this, product)
-    }
-
-    computeBasicDetails = () => 
-        `${this.productName} - ${this.description}`;
-  
-    computeBasicDetailsByType = () =>
-        `${this.productName} - ${this.description}`;
-   
-    computeTotalAmount = () => 
-        `${this.productName} - ${this.amountInGrams} grame`;
-    
-    computeEachProductStock =() =>
-        `${this.productName} - ${Math.floor(this.amountInGrams * this.pricePerGrams)} lei`
+  constructor(product){
+      this.productName = product.productName;
+      this.description = product.description;
+      this.color = product.color;
+      this.pricePerGrams = product.pricePerGrams;
+      this.amountInGrams = product.amountInGrams;
+      this.kcalPerGram = product.kcalPerGram;
+      this.type = product.type;
+  }
 }
 
 loadJSON().catch( error => { console.log(error) })
 
 async function loadJSON(){
-    const response = await fetch("./sweets.json")
-    const jsonData = await response.json()
+  const response = await fetch("./sweets.json")
+  const jsonData = await response.json()
 
-    const type = "Biscuiti";
+  const productsContainer = jsonData.map(x => new Sweet(x));
+  const checkType = "Biscuiti";
+  
+  const basicDetails = productsContainer.map(x => `${x.productName} - ${x.description}`)
 
-    const productsContainer = jsonData.map(x => new Sweet(x));
-    const basicDetails = productsContainer.map(x => x.computeBasicDetails())
-    const amountInGrams = productsContainer.map(x=> x.computeTotalAmount())
-    const stock = productsContainer.map(x => x.computeEachProductStock())
-    const basicDetailsByType = productsContainer
-      .filter(x => x.type === type)
-      .map(x=> x.computeBasicDetailsByType())
+  const basicDetailsByType = productsContainer
+    .filter(x => x.type === checkType)
+    .map(x => `${x.productName} - ${x.description}`)
 
-    const totalAmount = productsContainer
-      .map(x => Math.floor(x.amountInGrams * x.pricePerGrams))
-      .reduce((a,b)=> a + b)
-    stock.push(`Suma totala: ${totalAmount} lei`)
+  const totalAmountInGr = new Map(productsContainer.map(x => [x.type, 0]))
+  for(const x of productsContainer){
+      totalAmountInGr.forEach((value,key) => { if(key === x.type) totalAmountInGr.set(key, value += x.amountInGrams)})
+  }
 
-    console.log(basicDetails);
-    console.log(basicDetailsByType);
-    console.log(amountInGrams);
-    console.log(stock);
+  const stock = new Map(productsContainer.map(x=> [x.type, 0]))
+  for(const x of productsContainer){
+      stock.forEach((value,key) => { if(key === x.type) stock.set(key, Math.floor(value += x.amountInGrams * x.pricePerGrams))})
+  }
+
+  const totalAmount = productsContainer
+    .map(x => Math.floor(x.amountInGrams * x.pricePerGrams))
+    .reduce((a,b) => a + b)
+  stock.set("Suma totala:", totalAmount)
+
+  console.log(basicDetails);
+  console.log(basicDetailsByType);
+  console.log(totalAmountInGr);
+  console.log(stock);
 }
-
 /*
 
 // 1. Se da un string care contine cuvinte separate prin ", ". Sa se afiseze cuvintele palindrom (identice in oglinda) in acelasi format.
