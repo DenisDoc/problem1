@@ -44,7 +44,7 @@ class Sweet {
       this.type = product.type;
   }
 }
-
+  
 loadJSON().catch( error => { console.log(error) })
 
 async function loadJSON(){
