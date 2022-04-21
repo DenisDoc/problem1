@@ -33,69 +33,59 @@
 // tip de produs din magazin, cat si valoarea totala 
 // a produselor.
 
-
 class Sweet {
-    constructor(product){
-        this.productName = product.productName;
-        this.description = product.description;
-        this.color = product.color;
-        this.pricePerGrams = product.pricePerGrams;
-        this.amountInGrams = product.amountInGrams;
-        this.kcalPerGram = product.kcalPerGram;
-        this.type = product.type;
-         // Object.assign(this, product)
-    }
-
-    computeBasicDetails = () => 
-        `${this.productName} - ${this.description}`;
-  
-    computeBasicDetailsByType = () =>
-        `${this.productName} - ${this.description}`;
-   
-    computeTotalAmount = () => 
-        `${this.productName} - ${this.amountInGrams} grame`;
-    
-    computeEachProductStock =() =>
-        `${this.productName} - ${Math.floor(this.amountInGrams * this.pricePerGrams)} lei`
+  constructor(product){
+      this.productName = product.productName;
+      this.description = product.description;
+      this.color = product.color;
+      this.pricePerGrams = product.pricePerGrams;
+      this.amountInGrams = product.amountInGrams;
+      this.kcalPerGram = product.kcalPerGram;
+      this.type = product.type;
+  }
 }
 
 loadJSON().catch( error => { console.log(error) })
 
 async function loadJSON(){
-    const response = await fetch("./sweets.json")
-    const jsonData = await response.json()
+  const response = await fetch("./sweets.json")
+  const jsonData = await response.json()
 
-    const type = "Biscuiti";
+  const productsContainer = jsonData.map(x => new Sweet(x));
+  const checkType = "Biscuiti";
+  
+  const basicDetails = productsContainer.map(x => `${x.productName} - ${x.description}`)
 
-    const productsContainer = jsonData.map(x => new Sweet(x));
-    const basicDetails = productsContainer.map(x => x.computeBasicDetails())
-    const amountInGrams = productsContainer.map(x=> x.computeTotalAmount())
-    const stock = productsContainer.map(x => x.computeEachProductStock())
-    const basicDetailsByType = productsContainer
-      .filter(x => x.type === type)
-      .map(x=> x.computeBasicDetailsByType())
+  const basicDetailsByType = productsContainer
+    .filter(x => x.type === checkType)
+    .map(x => `${x.productName} - ${x.description}`)
 
-    const totalAmount = productsContainer
-      .map(x => Math.floor(x.amountInGrams * x.pricePerGrams))
-      .reduce((a,b)=> a + b)
-    stock.push(`Suma totala: ${totalAmount} lei`)
+  const totalAmountInGr = new Map(productsContainer.map(x => [x.type, 0]))
+  for(const x of productsContainer){
+      totalAmountInGr.forEach((value,key) => { if(key === x.type) totalAmountInGr.set(key, value += x.amountInGrams)})
+  }
 
-    console.log(basicDetails);
-    console.log(basicDetailsByType);
-    console.log(amountInGrams);
-    console.log(stock);
+  const stock = new Map(productsContainer.map(x=> [x.type, 0]))
+  for(const x of productsContainer){
+      stock.forEach((value,key) => { if(key === x.type) stock.set(key, Math.floor(value += x.amountInGrams * x.pricePerGrams))})
+  }
+
+  const totalAmount = productsContainer
+    .map(x => Math.floor(x.amountInGrams * x.pricePerGrams))
+    .reduce((a,b) => a + b)
+  stock.set("Suma totala:", totalAmount)
+
+  console.log(basicDetails);
+  console.log(basicDetailsByType);
+  console.log(totalAmountInGr);
+  console.log(stock);
 }
-
 /*
-
 // 1. Se da un string care contine cuvinte separate prin ", ". Sa se afiseze cuvintele palindrom (identice in oglinda) in acelasi format.
 // ex: "mar, bob, rotor, aiurea" afiseaza "bob, rotor"
-
-
 person.calcAverage();
 const words =
   "mar, rezistent, Bob, hematoterapie, rotor, Aiurea, unu, cojoc, reper, coprocultură, compliment, necuprins, hialoplasmă, english, word, racecar, 1000, 1881, minim";
-
 function findPalindrome(string) {
   return string
     .toLowerCase()
@@ -103,16 +93,12 @@ function findPalindrome(string) {
     .filter((y) => y === y.split("").reverse().join(""))
     .join(", ");
 }
-
 const palindromes = findPalindrome(words);
 console.log(palindromes);
-
 // 2. Se da un array* de numere naturale. Sa se insereze intre oricare 2 numere media lor.
-
 const numbers = [
   -1, 15, 2, 4, 10, 5, 31, 4, 20, 38, 66, 131, 34, 455, 10243, 11, 12,
 ];
-
 function computeAverage(numbers) {
   return numbers
     .map((x, i) =>
@@ -122,8 +108,6 @@ function computeAverage(numbers) {
 }
 const numbersAndAvg = computeAverage(numbers);
 console.log(numbersAndAvg);
-
-
 function pythagoreanTriplet(sum) {
   for (let x = 1; x < sum; x++) {
     for (let y = x + 1; y < sum; y++) {
@@ -134,10 +118,8 @@ function pythagoreanTriplet(sum) {
     }
   }
 }
-
 const result3 = pythagoreanTriplet(1000);
 console.log(result3);
-
 // let x, y, z, a, sum;
 // function pitTriplet(sum) {
 //   let m = 2;
@@ -151,8 +133,6 @@ console.log(result3);
 //     k++;
 //   }
 // }
-
-
 // Afiseaza toate numerele pitagorice ale caror suma este 1000. (3 numere a, b, c se numesc pitagorice daca a^2 + b^2 = c^2)
 let x, y, z, sum;
 const numbers = [];
@@ -160,7 +140,6 @@ const sortRandom = [];
 function random(min, max) {
   return Math.trunc(Math.random() * (max - min + 1) + min);
 }
-
 while (numbers.length < 1) {
   x = random(200, 425);
   y = random(200, 425);
@@ -180,7 +159,6 @@ while (numbers.length < 1) {
 console.log(
   `Numerele pitagorice ale caror suma este egala cu 1000 sunt: ${numbers.toString()} `
 );
-
 const person = {
   firstName: "Mihai",
   lastName: "Stan",
@@ -190,10 +168,7 @@ const person = {
   hobbies: ["cars", "planes", "music", "arts"],
   lotoNum: [2, 19, 33, 47, 26, 8],
 };
-
-
 // -------------------1-------------------
-
 function leapYear(year) {
   return (year % 4 == 0 && year % 100 != 0) || year % 400 == 0;
 }
@@ -201,7 +176,6 @@ function calcAge(dOBirth) {
   let dOB = new Date(dOBirth).getFullYear();
   const currentYear = new Date().getFullYear();
   const leapYearsCount = [];
-
   while (dOB < currentYear) {
     if (leapYear(dOB) == true) {
       leapYearsCount.push(dOB);
@@ -220,74 +194,51 @@ console.log(
     person.dateOfBirth
   )} years old ${person.occupation}.`
 );
-
-
-
-
-
-
 //------------------- 2 ------------------
-
 let country;
 switch (person.nationality) {
   case "romanian":
     country = "Romania";
     break;
-
   case "german":
     country = "Germany";
     break;
-
   case "italian":
     country = "Italy";
     break;
-
   case "british":
     country = "United Kingdom";
     break;
-
   case "french":
     country = "France";
     break;
-
   case "spanish":
     country = "Spain";
     break;
 }
-
 console.log(`${person.firstName} ${person.lastName} is from ${country}.`);
-
 //---------------------3-------------------
-
 console.log(
   `${person.firstName} ${person.lastName} has the following ${
     person.hobbies.length > 1 ? "hobbies" : "hobby"
   }: ${person.hobbies !== "" ? person.hobbies.join(", ") : ""}.`
 );
-
 //--------------------4---------------------
-
 console.log(
   `Loto numbers: ${person.lotoNum.sort((a, b) => a - b).join(", ")}.`
 );
-
 //-------------------5----------------------
-
 console.log(
   `Media aritmetica = ${
     person.lotoNum.reduce((a, b) => a + b) / person.lotoNum.length
   }`
 );
-
 //-------------------6-----------------------
-
 const odd = person.lotoNum.filter((x) => x % 2 !== 0).reduce((a, b) => a + b);
 const even = person.lotoNum.filter((x) => x % 2 === 0).reduce((a, b) => a + b);
 const diferenta = even - odd;
 console.log(diferenta);
-
 //------------------7------------------------
-
 const vowels = ["a", "e", "i", "o", "u"];
 // Numarul total de vocal din string
 const totalAmountOfVowels = person.hobbies
@@ -295,11 +246,9 @@ const totalAmountOfVowels = person.hobbies
   .split("")
   .filter((x) => vowels.includes(x)).length;
 console.log(totalAmountOfVowels);
-
 //Numarul de vocale din fiecare hobby
 const numOfVow = person.hobbies.map(
   (x) => `${x}: ${x.split("").filter((x) => vowels.includes(x)).length}`
 );
-
 console.log(numOfVow);
 */
