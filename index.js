@@ -59,7 +59,6 @@ async function loadJSON(){
   const basicDetailsByType = productsContainer
     .filter(x => x.type === checkType)
     .map(x => `${x.productName} - ${x.description}`)
-
   const typesContainer = new Map(productsContainer.map(x => [x.type, 0]))
   const stockContainer = new Map(productsContainer.map(x=> [x.type, 0]))
     for(const x of productsContainer){
@@ -70,15 +69,6 @@ async function loadJSON(){
         if(key === x.type) stockContainer.set(key, Math.floor(value += x.amountInGrams * x.pricePerGrams))
       })
     }
-//----- Am incercat cu forEach in loc de loop dar nu stiu daca este corect sa il folosesc asa... -----
-      // productsContainer.forEach(x => {
-  //       typesContainer.forEach((value,key) => {
-  //         if(key === x.type) typesContainer.set(key, value += x.amountInGrams)
-  //     })
-  //       stockContainer.forEach((value,key) => {
-  //         if(key === x.type) stockContainer.set(key, Math.floor(value += x.amountInGrams * x.pricePerGrams))
-  //     })
-  // })
   const totalAmountInGr = Array.from(typesContainer).map(x => `${x[0]} - ${x[1]}gr`)
   const stock = Array.from(stockContainer).map(x => `${x[0]} - ${x[1]}lei`)
   const totalAmount = productsContainer
