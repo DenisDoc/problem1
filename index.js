@@ -59,6 +59,7 @@ async function loadJSON(){
   const basicDetailsByType = productsContainer
     .filter(x => x.type === checkType)
     .map(x => `${x.productName} - ${x.description}`)
+    
   const typesContainer = new Map(productsContainer.map(x => [x.type, 0]))
   const stockContainer = new Map(productsContainer.map(x=> [x.type, 0]))
     for(const x of productsContainer){
