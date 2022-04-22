@@ -1,39 +1,38 @@
-
-     [
-        {
-            "productName": "Belvita",
-            "description": "Biscuiti cu cereale si bucatele de ciocolata, fortifiati cu minerale (fier, magneziu) si vitamine (E, B1)",
-            "color": "galben", 
-            "pricePerGrams": 0.02297,
-            "amountInGrams": 14690,
-            "kcalPerGram": 440,
-            "type": "Biscuiti"
-        },
-        {
-            "productName": "7-Days-Max",
-            "description": "Croissant cu umplutura de cacao",
-            "color": "rosu", 
-            "pricePerGrams": 0.02882,
-            "amountInGrams": 7565,
-            "kcalPerGram": 456,
-            "type": "Croissant" 
-        },
-        {
-            "productName": "Milka",
-            "description": "Biscuiti Milka Choco Minis",
-            "color": "mov", 
-            "pricePerGrams": 0.02667,
-            "amountInGrams": 2250 ,
-            "kcalPerGram" : 505,
-            "type": "Biscuiti"
-        },
-        {
-            "productName": "Knoppers",
-            "description": "Napolitana cu lapte si alune de padure",
-            "color": "albastru", 
-            "pricePerGrams": 0.084,
-            "amountInGrams": 5000,
-            "kcalPerGram": 547,
-            "type": "Napolitana"
+[
+    {
+        "productName": "Belvita",
+        "description": "Biscuiti cu cereale si bucatele de ciocolata, fortifiati cu minerale (fier, magneziu) si vitamine (E, B1)",
+        "color": "galben",
+        "pricePerGrams": 0.02297,
+        "amountInGrams": 14690,
+        "kcalPerGram": 440,
+        "type": "Biscuiti"
+    },
+    {
+        "productName": "7-Days-Max",
+        "description": "Croissant cu umplutura de cacao",
+        "color": "rosu",
+        "pricePerGrams": 0.02882,
+        "amountInGrams": 7565,
+        "kcalPerGram": 456,
+        "type": "Croissant"
+    },
+    {
+        "productName": "Milka",
+        "description": "Biscuiti Milka Choco Minis",
+        "color": "mov",
+        "pricePerGrams": 0.02667,
+        "amountInGrams": 2250,
+        "kcalPerGram": 505,
+        "type": "Biscuiti"
+    },
+    {
+        "productName": "Knoppers",
+        "description": "Napolitana cu lapte si alune de padure",
+        "color": "albastru",
+        "pricePerGrams": 0.084,
+        "amountInGrams": 5000,
+        "kcalPerGram": 547,
+        "type": "Napolitana"
     }
 ]

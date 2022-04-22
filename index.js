@@ -34,52 +34,50 @@
 // a produselor.
 
 class Sweet {
-  constructor(product){
-      this.productName = product.productName;
-      this.description = product.description;
-      this.color = product.color;
-      this.pricePerGrams = product.pricePerGrams;
-      this.amountInGrams = product.amountInGrams;
-      this.kcalPerGram = product.kcalPerGram;
-      this.type = product.type;
+  constructor(product) {
+    this.productName = product.productName;
+    this.description = product.description;
+    this.color = product.color;
+    this.pricePerGrams = product.pricePerGrams;
+    this.amountInGrams = product.amountInGrams;
+    this.kcalPerGram = product.kcalPerGram;
+    this.type = product.type;
   }
 }
-  
-loadJSON().catch( error => { console.log(error) })
 
-async function loadJSON(){
+loadJSON().catch(error => { console.log(error) })
+
+async function loadJSON() {
   const response = await fetch("./sweets.json")
   const jsonData = await response.json()
 
   const productsContainer = jsonData.map(x => new Sweet(x));
   const checkType = "Biscuiti";
-  
+
   const basicDetails = productsContainer.map(x => `${x.productName} - ${x.description}`)
 
   const basicDetailsByType = productsContainer
     .filter(x => x.type === checkType)
     .map(x => `${x.productName} - ${x.description}`)
-    
-  const typesContainer = new Map(productsContainer.map(x => [x.type, 0]))
-  const stockContainer = new Map(productsContainer.map(x=> [x.type, 0]))
-    for(const x of productsContainer){
-      typesContainer.forEach((value,key) => { 
-        if(key === x.type) typesContainer.set(key, value += x.amountInGrams)
-      })
-      stockContainer.forEach((value,key) => {
-        if(key === x.type) stockContainer.set(key, Math.floor(value += x.amountInGrams * x.pricePerGrams))
-      })
-    }
-  const totalAmountInGr = Array.from(typesContainer).map(x => `${x[0]} - ${x[1]}gr`)
-  const stock = Array.from(stockContainer).map(x => `${x[0]} - ${x[1]}lei`)
-  const totalAmount = productsContainer
-  .map(x => Math.floor(x.amountInGrams * x.pricePerGrams))
-  .reduce((a,b) => a + b)
-  stock.push(`Suma totala - ${totalAmount}lei`)
 
-  console.log(basicDetails);
-  console.log(basicDetailsByType);
-  console.log(totalAmountInGr);
+  const totalAmount = productsContainer
+    .map(x => Math.floor(x.amountInGrams * x.pricePerGrams))
+    .reduce((a, b) => a + b)
+  const typesContainer = new Map(productsContainer.map(x => [x.type, 0]))
+  const stockContainer = new Map(productsContainer.map(x => [x.type, 0]))
+  for (const x of productsContainer) {
+    let price = x.amountInGrams * x.pricePerGrams;
+    typesContainer.set(x.type, x.amountInGrams += typesContainer.get(x.type))
+    stockContainer.set(x.type, Math.floor(price += stockContainer.get(x.type)))
+  }
+  const totalAmountInGr = Array.from(typesContainer).map(x => `${x[0]} - ${x[1]}gr`)
+  const stock = Array.from(stockContainer).map(x => `${x[0]} - ${x[1]} lei`)
+  stock.push(`Suma totala - ${totalAmount} lei`)
+
+
+  // console.log(basicDetails);
+  // console.log(basicDetailsByType);
+  // console.log(totalAmountInGr);
   console.log(stock);
 }
 /*
