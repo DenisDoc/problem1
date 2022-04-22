@@ -75,9 +75,9 @@ async function loadJSON() {
   stock.push(`Suma totala - ${totalAmount} lei`)
 
 
-  // console.log(basicDetails);
-  // console.log(basicDetailsByType);
-  // console.log(totalAmountInGr);
+  console.log(basicDetails);
+  console.log(basicDetailsByType);
+  console.log(totalAmountInGr);
   console.log(stock);
 }
 /*
