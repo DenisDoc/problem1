@@ -60,23 +60,32 @@ async function loadJSON() {
     .filter(x => x.type === checkType)
     .map(x => `${x.productName} - ${x.description}`)
 
-  const totalAmount = productsContainer
-    .map(x => Math.floor(x.amountInGrams * x.pricePerGrams))
-    .reduce((a, b) => a + b)
-  const typesContainer = new Map(productsContainer.map(x => [x.type, 0]))
-  const stockContainer = new Map(productsContainer.map(x => [x.type, 0]))
-  for (const x of productsContainer) {
-    let price = x.amountInGrams * x.pricePerGrams;
-    typesContainer.set(x.type, x.amountInGrams += typesContainer.get(x.type))
-    stockContainer.set(x.type, Math.floor(price += stockContainer.get(x.type)))
-  }
-  const totalAmountInGr = Array.from(typesContainer).map(x => `${x[0]} - ${x[1]}gr`)
-  const stock = Array.from(stockContainer).map(x => `${x[0]} - ${x[1]} lei`)
-  stock.push(`Suma totala - ${totalAmount} lei`)
+  // const totalAmount = productsContainer
+  //   .map(x => Math.floor(x.amountInGrams * x.pricePerGrams))
+  //   .reduce((a, b) => a + b)
+  // const typesContainer = new Map(productsContainer.map(x => [x.type, 0]))
+  // const stockContainer = new Map(productsContainer.map(x => [x.type, 0]))
+  // for (const x of productsContainer) {
+  //   let price = x.amountInGrams * x.pricePerGrams;
+  //   typesContainer.set(x.type, x.amountInGrams += typesContainer.get(x.type))
+  //   stockContainer.set(x.type, Math.floor(price += stockContainer.get(x.type)))
+  // }
+  const totalAmountInGr = Array.from(productsContainer.reduce(
+    (prev, { type, amountInGrams }) =>
+      prev.set(type, (prev.get(type) || 0) + amountInGrams), new Map),
+    ([name, value]) => `${name} - ${value}gr`);
 
+  const stock = Array.from(productsContainer.reduce(
+    (prev, { type, amountInGrams, pricePerGrams }) =>
+      prev.set(type, (prev.get(type) || 0) + Math.floor(amountInGrams * pricePerGrams)), new Map),
+    ([name, value]) => `${name} - ${value} lei`);
 
-  console.log(basicDetails);
-  console.log(basicDetailsByType);
+  // const totalAmountInGr = Array.from(typesContainer).map(x => `${x[0]} - ${x[1]}gr`)
+  // const stock = Array.from(stockContainer).map(x => `${x[0]} - ${x[1]} lei`)
+  // stock.push(`Suma totala - ${totalAmount} lei`)
+
+  // console.log(basicDetails);
+  // console.log(basicDetailsByType);
   console.log(totalAmountInGr);
   console.log(stock);
 }
